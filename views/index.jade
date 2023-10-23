@@ -1,0 +1,86 @@
+extends layout
+
+block content
+  h1 blog_api 
+  p Orientation 
+  
+  section 
+    h4 Basic common sense rules pervade the API. 
+    p If you create and publish a blog / an article or make any comment, you are the owner of that and: 
+    ul
+      li any opinions, assertions, content expressed pertain only to the account holder
+      li can change it from public to private (async mark_article) and back again
+      li edit it (async update_article)
+      li delete it (async delete_article)
+      li can comment (create, edit, mark public/private, delete) on any other articles on the site
+      li can not create, alter or delete articles, posts or comments created by other accounts
+      | or by impersonating other accounts
+      li an account can not be removed if articles or comments exist, however the account 
+      | can be administratively locked down (and articles / comments non viewable) and it's use prevented
+
+    h4 an Administrative account can: 
+    ul 
+      li switch an article or comment to private if it is deemed contrary to blog moderation policy 
+      li delete a comment if it is deemed contrary to blog moderation policy 
+      li block an account from posting anything and make private or remove any content 
+      | deemed contrary to blog moderation policy 
+      li may be edited and annotated administratively as having been edited
+
+    h4 blog moderation policy in brief is: 
+    ul 
+      li is provided as a free resource for the common benefit of society 
+      li as such accounts must maintain respect of others and opinions of civil society
+      li and anti social behaviour will be supressed either by locking down as private or 
+      | removing offending content. It is not partial content 
+      li If a commentary or article contains offensive material, it is the entire entry 
+      | which is blocked or removed and account owners may be suspended
+
+    h4 Terms &amp; Conditions
+    ul 
+      li accounts are limited to a maximum of 20 postings in a given year and will be archived off 
+      | on the anniversary 
+      li accounts are limited to a maximum of 40 comments in a given year and will be archived off 
+      | on the anniversary 
+      li the service may be withdrawn at any time, service is on best endeavours, no liability 
+      | and all the other typical legalese clauses preventing comeback on site provider/administration/et al 
+      
+     
+
+
+  code 
+    h4 The Public API
+    p some prepped and tested functions exist in 'index.js' script for immediate use
+    pre 
+      h4 authentication and registration
+      async register(email, password) 
+      br
+      async unregister(jwt_token, email, password) // must already have authenticated
+      br
+      async login(email, password) 
+      br
+      async change_password(jwt_token, email, old_password, new_password) // must already have authenticated
+      br
+      h4 Articles
+      async get_articles() 
+      br
+      async create_article(jwt_token, author_id) 
+      br
+      async update_article(jwt_token, article_id, updated_article) 
+      br
+      async delete_article(jwt_token, article_id) 
+      br
+      async mark_article(article_id, public, jwt_token) 
+      br
+      async get_article_comments(article_id) 
+      br
+      br
+      h4 Comments
+      async get_comments() 
+      br
+      async create_comment(jwt_token, article_id, user_id) 
+      br
+      async update_comment(jwt_token, comment_id, updated_comment) 
+      br
+      async delete_comment(jwt_token, comment_id) 
+      br
+      async mark_comment(coment_id, public, jwt_token)  
